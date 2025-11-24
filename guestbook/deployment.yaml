@@ -1,0 +1,22 @@
+# Create a simple Deployment YAML inside it
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-web-app
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-web-app
+  template:
+    metadata:
+      labels:
+        app: my-web-app
+    spec:
+      containers:
+      - name: server
+        image: nginx:latest
+        ports:
+        - containerPort: 80
