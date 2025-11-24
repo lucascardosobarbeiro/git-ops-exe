@@ -1,26 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: guestbook-app # The name Argo CD will show in the UI
-  namespace: argocd # The namespace where Argo CD itself is installed
+  name: my-practice-app # I changed the name so it doesn't conflict
+  namespace: argocd
 spec:
-  project: default # Use the default project (permissions wrapper)
-
-  # SOURCE: Where is your code?
+  project: default
   source:
-    repoURL: https://github.com/argoproj/argocd-example-apps.git
-    targetRevision: HEAD # The branch to track (e.g., HEAD, main, v1.0)
-    path: guestbook # The folder inside the repo containing YAMLs
-
-  # DESTINATION: Where should it be deployed?
+    # CHANGE THIS TO YOUR REPO URL
+    repoURL: https://github.com/lucascardosobarbeiro/git-ops-exe.git
+    targetRevision: main
+    path: guestbook # This must match the folder name in Step 1
   destination:
-    server: https://kubernetes.default.svc # The cluster Argo CD is running on
-    namespace: default # The namespace to deploy your app into
-
-  # SYNC POLICY: Automated vs Manual
+    server: https://kubernetes.default.svc
+    namespace: default
   syncPolicy:
     automated:
-      prune: true # Delete resources if they are removed from Git
-      selfHeal: true # Fix the cluster if someone manually changes something
+      prune: true
+      selfHeal: true
     syncOptions:
-      - CreateNamespace=true # Auto-create the destination namespace if missing
+      - CreateNamespace=true
